@@ -16,4 +16,5 @@ export type SiteConfig = {
   intro: string;
   email: string;
   resumeUrl: string;
+  githubUrl: string;
 };

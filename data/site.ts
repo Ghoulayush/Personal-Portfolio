@@ -8,6 +8,7 @@ export const site: SiteConfig = {
   intro: "I'm a computer science student focused on AI and agentic systems, cloud computing, DevOps, and Kubernetes. I design and operate software end to end — from containerized infrastructure to ML pipelines — with an emphasis on reliability and maintainability.",
   email: "hello@example.com",
   resumeUrl: "/resume.pdf",
+  githubUrl: "https://github.com/your-username",
 };
 
 export const navLinks: NavLink[] = [
@@ -21,7 +22,7 @@ export const navLinks: NavLink[] = [
 ];
 
 export const socialLinks: SocialLink[] = [
-  { label: "GitHub", href: "https://github.com/your-username" },
+  { label: "GitHub", href: site.githubUrl },
   { label: "LinkedIn", href: "https://linkedin.com/in/your-username" },
   { label: "Email", href: `mailto:${site.email}` },
 ];
