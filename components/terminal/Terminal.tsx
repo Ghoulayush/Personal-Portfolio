@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import type { FormEvent, KeyboardEvent, MouseEvent } from "react";
 import { commands } from "@/data/terminal";
 import { getSuggestions, runCommand } from "@/lib/terminal";
-import type { TerminalLine } from "@/types/terminal";
+import type { CommandName, TerminalLine } from "@/types/terminal";
 
 const toneClass = {
   default: "text-ink",
@@ -102,9 +102,12 @@ export function Terminal() {
     }
   }
 
-  function handleSuggestionMouseDown(event: MouseEvent<HTMLLIElement>) {
+  function handleSuggestionMouseDown(
+    event: MouseEvent<HTMLLIElement>,
+    name: CommandName,
+  ) {
     event.preventDefault();
-    executeCommand(suggestions[activeIndex]);
+    executeCommand(name);
   }
 
   return (
@@ -121,14 +124,18 @@ export function Terminal() {
       <div
         ref={outputRef}
         className="max-h-96 overflow-y-auto px-4 py-4"
+        role="region"
         aria-label="Terminal output"
       >
-        {history.length === 0 && (
-          <p id="terminal-hint" className="font-mono text-sm text-ink-faint">
-            Type &quot;help&quot; and press Enter to get started. Tab completes
-            commands.
-          </p>
-        )}
+        <p
+          id="terminal-hint"
+          className={`font-mono text-sm text-ink-faint ${
+            history.length > 0 ? "hidden" : ""
+          }`}
+        >
+          Type &quot;help&quot; and press Enter to get started. Tab completes
+          commands.
+        </p>
         {history.map((line, index) =>
           line.kind === "input" ? (
             <p key={index} className="font-mono text-sm leading-relaxed">
@@ -167,7 +174,7 @@ export function Terminal() {
                 role="option"
                 aria-selected={active}
                 onMouseEnter={() => setSuggestionIndex(index)}
-                onMouseDown={handleSuggestionMouseDown}
+                onMouseDown={(event) => handleSuggestionMouseDown(event, name)}
                 className={`flex items-baseline gap-2 px-4 py-2 font-mono text-sm ${
                   active
                     ? "bg-line/60 text-ink"
@@ -207,7 +214,7 @@ export function Terminal() {
           role="combobox"
           aria-autocomplete="list"
           aria-expanded={isOpen}
-          aria-controls="terminal-suggestions"
+          aria-controls={isOpen ? "terminal-suggestions" : undefined}
           aria-activedescendant={
             isOpen ? `terminal-suggestion-${suggestions[activeIndex]}` : undefined
           }

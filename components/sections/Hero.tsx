@@ -1,3 +1,4 @@
+import { HeroVisual } from "@/components/hero/HeroVisual";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { GitHubIcon, LinkedinIcon, MailIcon } from "@/components/ui/icons";
@@ -11,8 +12,9 @@ const iconMap = {
 
 export function Hero() {
   return (
-    <section id="home" className="flex flex-1 flex-col justify-center">
-      <Container className="py-20 md:py-28">
+    <section id="home" className="relative flex flex-1 flex-col justify-center">
+      <HeroVisual />
+      <Container className="relative z-10 py-20 md:py-28">
         <p className="animate-fade-up font-mono text-xs uppercase tracking-[0.2em] text-accent">
           {site.status}
         </p>
