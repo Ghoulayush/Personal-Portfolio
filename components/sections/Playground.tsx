@@ -3,18 +3,16 @@ import { Terminal } from "@/components/terminal/Terminal";
 
 export function Playground() {
   return (
-    <Section id="playground">
-      <div className="border-b border-line pb-10">
+    <Section id="playground" spacing="tight">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
-          Playground
+          Prefer the command line?
         </p>
-        <h2 className="mt-4 max-w-xl">Everything here, at a prompt.</h2>
-        <p className="mt-4 max-w-2xl text-ink-soft">
-          A read-only shell over this portfolio. Type help to list commands —
-          nothing is executed and nothing leaves your browser.
+        <p className="font-mono text-xs text-ink-faint">
+          Read-only — nothing leaves your browser
         </p>
       </div>
-      <div className="reveal mt-10">
+      <div className="mt-5">
         <Terminal />
       </div>
     </Section>

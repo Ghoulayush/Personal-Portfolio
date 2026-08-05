@@ -52,6 +52,15 @@ function skillsOutput(): TerminalLine[] {
 
 function projectsOutput(): TerminalLine[] {
   const featured = projects.filter((project) => project.featured);
+  if (featured.length === 0) {
+    return [
+      {
+        kind: "output",
+        text: "No projects published yet — check back soon.",
+        tone: "muted",
+      },
+    ];
+  }
   return [
     { kind: "output", text: "Selected projects:", tone: "muted" },
     ...featured.flatMap((project) => [

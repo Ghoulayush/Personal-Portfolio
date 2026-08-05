@@ -1,14 +1,23 @@
 import type { NavLink, SiteConfig, SocialLink } from "@/types/site";
 
 export const site: SiteConfig = {
-  name: "Ayush",
+  name: "Ayush Ramola",
   monogram: "A",
-  status: "Computer Science Student · Building with AI and Cloud",
+  status: "Fourth-year CS Student · Agentic AI & Cloud",
   headline: "I build thoughtful digital systems.",
-  intro: "I'm a computer science student focused on AI and agentic systems, cloud computing, DevOps, and Kubernetes. I design and operate software end to end — from containerized infrastructure to ML pipelines — with an emphasis on reliability and maintainability.",
-  email: "hello@example.com",
+  intro:
+    "I'm a fourth-year Computer Science student at Graphic Era Deemed to be University, focused on agentic AI, cloud computing, and DevOps. I learn by building — personal projects that put AI, containers, and algorithms into practice, with an emphasis on reliability and maintainability.",
+  email: "ramolaayush832@gmail.com",
   resumeUrl: "/resume.pdf",
-  githubUrl: "https://github.com/your-username",
+  githubUrl: "https://github.com/Ghoulayush",
+  focus: [
+    "Agentic AI",
+    "Cloud Computing",
+    "Kubernetes",
+    "DevOps",
+    "Machine Learning",
+    "Data Structures and Algorithms",
+  ],
 };
 
 export const navLinks: NavLink[] = [
@@ -23,6 +32,6 @@ export const navLinks: NavLink[] = [
 
 export const socialLinks: SocialLink[] = [
   { label: "GitHub", href: site.githubUrl },
-  { label: "LinkedIn", href: "https://linkedin.com/in/your-username" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/ayush-ramola/" },
   { label: "Email", href: `mailto:${site.email}` },
 ];

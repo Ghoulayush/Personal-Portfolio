@@ -137,7 +137,7 @@
 @keyframes fade-up {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -146,7 +146,7 @@
 }
 
 .animate-fade-up {
-  animation: fade-up 0.6s ease-out both;
+  animation: fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @keyframes fade-in {
@@ -165,7 +165,7 @@
 @keyframes reveal-up {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -174,9 +174,77 @@
 }
 
 .reveal {
-  animation: reveal-up 0.7s ease-out both;
+  animation: reveal-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
   animation-timeline: view();
-  animation-range: entry 0% entry 45%;
+  animation-range: entry 0% entry 40%;
+}
+
+.marquee {
+  overflow: hidden;
+  border-block: 1px solid var(--line);
+  padding-block: 1.25rem;
+}
+
+.marquee-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: marquee-scroll 45s linear infinite;
+  will-change: transform;
+}
+
+.marquee-group {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 2.5rem;
+  padding-inline-end: 2.5rem;
+}
+
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+  transition: color 200ms ease;
+}
+
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee-item:hover,
+.marquee-item:focus-visible {
+  color: var(--accent);
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+    width: 100%;
+  }
+
+  .marquee-group {
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    padding-inline-end: 0;
+  }
+
+  .marquee-group[aria-hidden="true"] {
+    display: none;
+  }
 }
 
 .theme-transition,
@@ -206,7 +274,8 @@
     scroll-behavior: auto !important;
   }
 
-  .animate-fade-up {
+  .animate-fade-up,
+  .animate-fade-in {
     animation: none;
   }
 

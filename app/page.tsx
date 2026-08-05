@@ -8,19 +8,23 @@ import { Navbar } from "@/components/sections/Navbar";
 import { Playground } from "@/components/sections/Playground";
 import { Projects } from "@/components/sections/Projects";
 import { Skills } from "@/components/sections/Skills";
+import { Wayfinder } from "@/components/sections/Wayfinder";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
 
 export default function Home() {
   return (
     <>
+      <ScrollProgress />
       <Navbar />
       <main className="flex flex-1 flex-col">
         <Hero />
-        <Playground />
+        <Wayfinder />
         <About />
         <Skills />
         <Projects />
         <Experience />
         <Blog />
+        <Playground />
         <Contact />
       </main>
       <Footer />

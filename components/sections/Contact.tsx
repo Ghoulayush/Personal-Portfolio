@@ -1,5 +1,6 @@
 import { ContactForm } from "@/components/contact/ContactForm";
 import { Section } from "@/components/ui/Section";
+import { SectionIndex } from "@/components/ui/SectionIndex";
 import {
   ArrowUpRightIcon,
   GitHubIcon,
@@ -16,12 +17,10 @@ const socialIcons = {
 
 export function Contact() {
   return (
-    <Section id="contact">
+    <Section id="contact" spacing="tight">
       <div className="grid gap-12 border-b border-line pb-10 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5">
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
-            Contact
-          </p>
+          <SectionIndex index="06" label="Contact" />
           <h2 className="mt-4">
             Let&apos;s build something worth keeping.
           </h2>
@@ -55,6 +54,10 @@ export function Contact() {
               );
             })}
           </ul>
+          <p className="mt-8 max-w-md border-l border-line pl-4 text-sm leading-relaxed text-ink-soft">
+            Thanks for reading this far. If any of this resonates with a
+            problem you&apos;re working on, I&apos;d like to hear from you.
+          </p>
         </div>
 
         <div className="lg:col-span-7">

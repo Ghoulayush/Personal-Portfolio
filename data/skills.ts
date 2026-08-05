@@ -4,156 +4,54 @@ export const skills: SkillCategory[] = [
   {
     name: "Programming",
     skills: [
-      {
-        name: "TypeScript",
-        description:
-          "The backbone of my web work — type-safe, readable, and pleasant to refactor.",
-      },
-      {
-        name: "Python",
-        description:
-          "My default for scripting, data work, and machine learning experiments.",
-      },
-      {
-        name: "Go",
-        description:
-          "For building small, fast services and CLI tools that deploy without drama.",
-      },
-      {
-        name: "SQL",
-        description:
-          "For modeling data and asking questions of it without ceremony.",
-      },
+      { name: "Python", description: "Primary language for the GitMate and BharatBiz AI backends." },
+      { name: "TypeScript", description: "Typed JavaScript across the GitMate and BharatBiz frontends." },
+      { name: "JavaScript", description: "Core language behind my React and Node.js work." },
+      { name: "C", description: "Systems and memory fundamentals from coursework." },
+      { name: "C++", description: "Object-oriented and systems programming from coursework." },
     ],
   },
   {
-    name: "AI and Machine Learning",
+    name: "Web",
     skills: [
-      {
-        name: "LLM Applications",
-        description:
-          "Orchestrating language models into tools that actually finish a task.",
-      },
-      {
-        name: "RAG Systems",
-        description:
-          "Grounding model answers in real data to reduce confident hallucinations.",
-      },
-      {
-        name: "PyTorch",
-        description:
-          "Training and fine-tuning models for experiments that need more than an API.",
-      },
-      {
-        name: "Prompt Engineering",
-        description:
-          "Designing context and constraints that make models behave predictably.",
-      },
+      { name: "React", description: "UI layer in all three project frontends." },
+      { name: "Next.js", description: "App Router and server components in the GitMate dashboard." },
+      { name: "Vite", description: "Build tool for the BharatBiz and BookSwap frontends." },
+      { name: "React Router", description: "Client-side routing in the BookSwap frontend." },
+      { name: "Zustand", description: "Lightweight store in the BookSwap frontend." },
+      { name: "Tailwind CSS", description: "Utility-first styling in every project frontend." },
+      { name: "HTML", description: "Semantic markup foundation for my React work." },
+      { name: "CSS", description: "Styling foundation, used under Tailwind." },
     ],
   },
   {
-    name: "Cloud",
+    name: "Backend and Data",
     skills: [
-      {
-        name: "AWS",
-        description:
-          "The platform I reach for first when a service needs to scale.",
-      },
-      {
-        name: "Azure",
-        description:
-          "Familiarity from academic and internship work with enterprise tooling.",
-      },
-      {
-        name: "Serverless",
-        description:
-          "Functions and managed services for workloads that don't need a dedicated box.",
-      },
-      {
-        name: "Infrastructure as Code",
-        description:
-          "Defining environments in code so they can be reviewed and reproduced.",
-      },
+      { name: "FastAPI", description: "Async Python APIs powering GitMate and the BharatBiz agent." },
+      { name: "Prisma", description: "Type-safe ORM for the GitMate dashboard." },
+      { name: "PostgreSQL", description: "Relational store behind GitMate's persistence." },
+      { name: "Supabase", description: "Auth and data layer used from the BookSwap frontend." },
+      { name: "Firebase", description: "Auth and Firestore used in BharatBiz and its agent." },
+      { name: "Node.js", description: "Runtime for my Next.js and Vite toolchains." },
     ],
   },
   {
-    name: "DevOps",
+    name: "AI and Agents",
     skills: [
-      {
-        name: "Kubernetes",
-        description:
-          "Running containerized workloads with declarative config and self-healing.",
-      },
-      {
-        name: "Docker",
-        description:
-          "Packaging applications so they run the same everywhere.",
-      },
-      {
-        name: "CI/CD",
-        description:
-          "Automating the path from commit to production with fast feedback.",
-      },
-      {
-        name: "Terraform",
-        description:
-          "Managing cloud resources as versioned, reviewable configuration.",
-      },
-      {
-        name: "Monitoring",
-        description:
-          "Metrics, logs, and traces that catch problems before users do.",
-      },
+      { name: "LangChain", description: "RAG and ReAct orchestration in GitMate and BharatBiz." },
+      { name: "Pinecone", description: "Vector search for scheme retrieval in BharatBiz." },
+      { name: "Groq", description: "Fast LLM inference powering GitMate's code chat." },
+      { name: "Agentic AI", description: "Multi-agent design behind BharatBiz and GitMate." },
+      { name: "Deep Learning", description: "Coursework foundation; not yet exercised in shipped code." },
     ],
   },
   {
-    name: "Web Technologies",
+    name: "Cloud and DevOps",
     skills: [
-      {
-        name: "React / Next.js",
-        description:
-          "Building fast, accessible interfaces — like this site.",
-      },
-      {
-        name: "Tailwind CSS",
-        description:
-          "Styling with utility classes that stay consistent and lean.",
-      },
-      {
-        name: "REST & Web APIs",
-        description:
-          "Designing endpoints with clear contracts and clean errors.",
-      },
-      {
-        name: "WebSockets",
-        description:
-          "Real-time updates when a plain request-response isn't enough.",
-      },
-    ],
-  },
-  {
-    name: "Tools",
-    skills: [
-      {
-        name: "Git & GitHub",
-        description:
-          "Version control and collaborative workflows — my second brain.",
-      },
-      {
-        name: "Linux / Unix",
-        description:
-          "The shell is home; scripting turns chores into one-liners.",
-      },
-      {
-        name: "Markdown",
-        description:
-          "Writing docs, notes, and posts in plain text that lasts.",
-      },
-      {
-        name: "Jupyter",
-        description:
-          "Exploring data and models interactively before they become code.",
-      },
+      { name: "Docker", description: "Containerized MCP server in the BharatBiz repo." },
+      { name: "Git", description: "Version control across all three repositories." },
+      { name: "GitHub", description: "Hosting and collaboration for all three repositories." },
+      { name: "AWS", description: "Studied and certified-adjacent; not yet used in shipped projects." },
     ],
   },
 ];

@@ -2,58 +2,48 @@ import type { Article } from "@/types/article";
 
 export const articles: Article[] = [
   {
-    slug: "grounding-llms-what-rag-buys-you",
-    title: "Grounding LLMs: what RAG actually buys you",
+    slug: "what-does-serverless-actually-mean",
+    title: "What does \u201cserverless\u201d actually mean?",
     excerpt:
-      "RAG is sold as a way to stop hallucinations, but the real win is narrower and more useful: it turns a model into a system with a source of truth you can audit.",
-    date: "2026-06-18",
-    readingMinutes: 9,
-    tags: ["AI / ML", "RAG"],
+      "Lambda runs your code with no servers to manage \u2014 but \u201cserverless\u201d only clicks when you see it against the unmanaged-to-fully-managed spectrum AWS services actually live on.",
+    date: "2026-04-25",
+    readingMinutes: 2,
+    tags: ["Serverless", "AWS", "Cloud"],
     featured: true,
-  },
-  {
-    slug: "why-i-dropped-docker-compose-for-local-dev",
-    title: "Why I stopped using Docker Compose for local dev",
-    excerpt:
-      "A few too many Monday mornings rebuilding the world. What I reach for instead, and the trade-offs I accepted along the way.",
-    date: "2026-04-30",
-    readingMinutes: 6,
-    tags: ["DevOps", "Docker"],
-  },
-  {
-    slug: "notes-on-my-first-kubernetes-controller",
-    title: "Notes on making my first Kubernetes controller",
-    excerpt:
-      "Reconciling desired state is a strange loop to internalize. Lessons from taking a half-baked operator to something that survives a real cluster.",
-    date: "2026-03-12",
-    readingMinutes: 11,
-    tags: ["Kubernetes", "Go"],
-  },
-  {
-    slug: "tiny-e-ink-dashboards-and-slow-interfaces",
-    title: "Tiny e-ink dashboards and the joy of slow interfaces",
-    excerpt:
-      "A 240×448 pixel screen that updates once a minute changed how I think about what deserves my attention.",
-    date: "2026-01-27",
-    readingMinutes: 5,
-    tags: ["Design", "Frontend"],
-  },
-  {
-    slug: "typescript-strict-mode-is-a-feature",
-    title: "TypeScript strict mode is a feature, not a chore",
-    excerpt:
-      "The first time you push through strict is annoying. The tenth time it catches a bug before your users do, it stops being a debate.",
-    date: "2025-11-09",
-    readingMinutes: 7,
-    tags: ["TypeScript", "Tooling"],
-  },
-  {
-    slug: "terraform-modules-i-wish-id-written-earlier",
-    title: "Terraform modules I wish I'd written earlier",
-    excerpt:
-      "The infrastructure that quietly worked for a year wasn't clever. It was boring, small, and documented in the module itself.",
-    date: "2025-09-21",
-    readingMinutes: 8,
-    tags: ["DevOps", "Infrastructure"],
+    body: [
+      {
+        type: "paragraph",
+        text: "AWS Lambda is described in one line: a serverless compute service that runs code. You hand over a function, and AWS provisions whatever it needs to execute it \u2014 you never see the server it ran on. That description only makes sense once you understand what \u201cserverless\u201d really means, so let\u2019s back up.",
+      },
+      {
+        type: "heading",
+        text: "Serverless is a spectrum, not a switch",
+      },
+      {
+        type: "paragraph",
+        text: "Every AWS service sits somewhere on a spectrum of operational overhead \u2014 how much of the plumbing you own versus how much AWS handles. Three tiers cover almost everything.",
+      },
+      {
+        type: "list",
+        ordered: true,
+        items: [
+          "Unmanaged. AWS takes care of the underlying physical infrastructure, but you\u2019re responsible for setting up, securing, and maintaining the operating system, network configurations, and applications on your instances. Classic EC2 lives here.",
+          "Managed. AWS handles much of the operational overhead \u2014 patching, backups, failover \u2014 but you may still need to do some provisioning or configuration depending on the service. Think managed databases like RDS.",
+          "Fully managed. The serverless end. There are no servers to provision or manage at all. The infrastructure is entirely AWS\u2019s problem, so you can focus on writing and deploying code.",
+        ],
+      },
+      {
+        type: "quote",
+        text: "Serverless doesn\u2019t mean there are no servers. It means they stopped being your problem.",
+      },
+      {
+        type: "heading",
+        text: "Where Lambda fits",
+      },
+      {
+        type: "paragraph",
+        text: "Lambda sits at the fully managed end. Instead of a capacity plan, you ship a function and AWS scales it on demand, charging you only for the execution time you actually use. You never touch an instance, a kernel, or a patch window \u2014 you write a function and the platform takes care of the rest. When the goal is shipping logic with as little infrastructure thinking as possible, that\u2019s the tier you reach for.",
+      },
+    ],
   },
 ];

@@ -17,4 +17,5 @@ export type SiteConfig = {
   email: string;
   resumeUrl: string;
   githubUrl: string;
+  focus: string[];
 };

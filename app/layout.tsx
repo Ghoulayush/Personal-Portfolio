@@ -16,9 +16,9 @@ const geistMono = Geist_Mono({
 const themeInit = `(function(){try{var s=localStorage.getItem("theme");var d=s?s==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;if(d)document.documentElement.classList.add("dark")}catch(e){}})();`;
 
 export const metadata: Metadata = {
-  title: { default: "Portfolio", template: "%s · Portfolio" },
+  title: { default: "Ayush Ramola · Portfolio", template: "%s · Portfolio" },
   description:
-    "E-ink-inspired personal portfolio of a computer science student.",
+    "Portfolio of Ayush Ramola — B.Tech Computer Science student exploring agentic AI, cloud, and DevOps.",
 };
 
 export const viewport: Viewport = {
