@@ -14,6 +14,8 @@
   --line-strong: #c9c0ae;
   --accent: #a64f2b;
 
+  --grid-line: rgba(33, 29, 23, 0.05);
+  --grid-major: rgba(33, 29, 23, 0.09);
   --grain-opacity: 0.04;
 }
 
@@ -29,6 +31,8 @@
   --line-strong: #453e30;
   --accent: #d0895c;
 
+  --grid-line: rgba(234, 228, 214, 0.05);
+  --grid-major: rgba(234, 228, 214, 0.08);
   --grain-opacity: 0.06;
 }
 
@@ -53,6 +57,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: clip;
   }
 
   body {
@@ -60,6 +65,7 @@
     color: var(--ink);
     font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
     line-height: 1.5;
+    overflow-x: clip;
   }
 
   body::after {
@@ -71,6 +77,90 @@
     opacity: var(--grain-opacity);
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     background-size: 160px 160px;
+  }
+
+  .technical-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    --grid-size: 24px;
+    background-image:
+      linear-gradient(to right, var(--grid-major) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-major) 1px, transparent 1px),
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size:
+      calc(var(--grid-size) * 6) calc(var(--grid-size) * 6),
+      calc(var(--grid-size) * 6) calc(var(--grid-size) * 6),
+      var(--grid-size) var(--grid-size),
+      var(--grid-size) var(--grid-size);
+  }
+
+  .technical-bg[data-grid="minor"] {
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: var(--grid-size) var(--grid-size);
+  }
+
+  .technical-bg[data-intensity="dense"] {
+    --grid-size: 16px;
+  }
+
+  .technical-bg[data-intensity="quiet"] {
+    --grid-size: 32px;
+  }
+
+  .technical-bg[data-intensity="calm"] {
+    --grid-size: 48px;
+  }
+
+  .technical-bg__sweep {
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-end: -40%;
+    width: 110%;
+    height: 110%;
+    background: linear-gradient(
+      115deg,
+      transparent 0%,
+      transparent 52%,
+      color-mix(in srgb, var(--accent) 5%, transparent) 100%
+    );
+  }
+
+  .technical-bg__marker {
+    position: absolute;
+    top: 18%;
+    right: 6%;
+    width: 2.25rem;
+    height: 2.25rem;
+    opacity: 0.5;
+    border-right: 1px solid var(--ink-faint);
+    border-bottom: 1px solid var(--ink-faint);
+  }
+
+  .technical-bg__marker::before {
+    content: "";
+    position: absolute;
+    top: 0.3rem;
+    right: 0.3rem;
+    width: 3px;
+    height: 3px;
+    background: var(--accent);
+    animation: tech-pulse 3.2s ease-in-out infinite;
+  }
+
+  @keyframes tech-pulse {
+    0%,
+    100% {
+      opacity: 0.15;
+    }
+    50% {
+      opacity: 1;
+    }
   }
 
   h1,
@@ -258,6 +348,134 @@
     fill 300ms ease,
     outline-color 300ms ease,
     stroke 300ms ease;
+}
+
+.pet-stage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 40;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.pet-stage[data-paused="true"] * {
+  animation-play-state: paused;
+}
+
+.pet-flip[data-flipped="true"] {
+  transform: scaleX(-1);
+}
+
+.pet-stage[data-moving="false"] .pet-bob {
+  animation: pet-bob 2.6s ease-in-out infinite;
+}
+
+.pet-stage[data-moving="true"] .pet-bob {
+  animation: pet-walk 0.24s steps(2) infinite;
+}
+
+.pet-sprite {
+  image-rendering: pixelated;
+}
+
+@keyframes pet-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes pet-walk {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-1px);
+  }
+}
+
+.cursor-reticle {
+  position: absolute;
+  will-change: transform, width, height;
+  transition:
+    width 200ms ease-out,
+    height 200ms ease-out,
+    opacity 200ms ease-out;
+}
+
+.cursor-reticle__group {
+  position: absolute;
+  inset: 0;
+  transition: transform 250ms ease;
+}
+
+.cursor-reticle[data-state="lab"] .cursor-reticle__group {
+  transform: rotate(45deg);
+}
+
+.cursor-reticle__bracket {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  opacity: 0.7;
+  transition:
+    width 200ms ease-out,
+    height 200ms ease-out,
+    opacity 200ms ease-out;
+}
+
+.cursor-reticle__bracket--tl {
+  top: 0;
+  left: 0;
+  border-top: 2px solid var(--accent);
+  border-left: 2px solid var(--accent);
+}
+
+.cursor-reticle__bracket--tr {
+  top: 0;
+  right: 0;
+  border-top: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
+}
+
+.cursor-reticle__bracket--bl {
+  bottom: 0;
+  left: 0;
+  border-bottom: 2px solid var(--accent);
+  border-left: 2px solid var(--accent);
+}
+
+.cursor-reticle__bracket--br {
+  bottom: 0;
+  right: 0;
+  border-bottom: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
+}
+
+.cursor-reticle[data-state="interactive"] .cursor-reticle__bracket {
+  width: 9px;
+  height: 9px;
+  opacity: 1;
+}
+
+.cursor-reticle__dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  transform: translate(-50%, -50%);
+  border: 1px solid var(--accent);
+  transition: background-color 150ms ease;
+}
+
+.cursor-reticle[data-state="interactive"] .cursor-reticle__dot {
+  background: var(--accent);
 }
 
 @media (prefers-reduced-motion: reduce) {

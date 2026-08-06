@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
+import { site } from "@/data/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,10 +16,33 @@ const geistMono = Geist_Mono({
 
 const themeInit = `(function(){try{var s=localStorage.getItem("theme");var d=s?s==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;if(d)document.documentElement.classList.add("dark")}catch(e){}})();`;
 
+const siteUrl = site.url ? new URL(site.url) : null;
+
 export const metadata: Metadata = {
-  title: { default: "Ayush Ramola · Portfolio", template: "%s · Portfolio" },
-  description:
-    "Portfolio of Ayush Ramola — B.Tech Computer Science student exploring agentic AI, cloud, and DevOps.",
+  title: {
+    default: `${site.fullName} · Portfolio`,
+    template: "%s · Portfolio",
+  },
+  description: `Portfolio of ${site.fullName} — ${site.status}.`,
+  metadataBase: siteUrl ?? undefined,
+  robots: { index: true, follow: true },
+  openGraph: {
+    type: "website",
+    siteName: site.fullName,
+    locale: "en_US",
+    title: {
+      default: `${site.fullName} · Portfolio`,
+      template: "%s · Portfolio",
+    },
+    description: `Portfolio of ${site.fullName} — ${site.status}.`,
+    ...(siteUrl ? { url: siteUrl.origin } : {}),
+  },
+  twitter: {
+    card: "summary",
+    title: `${site.fullName} · Portfolio`,
+    description: `Portfolio of ${site.fullName} — ${site.status}.`,
+  },
+  ...(siteUrl ? { alternates: { canonical: "/" } } : {}),
 };
 
 export const viewport: Viewport = {

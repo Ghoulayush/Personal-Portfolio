@@ -1,41 +1,29 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { Container } from "@/components/ui/Container";
 import { CloseIcon, MenuIcon } from "@/components/ui/icons";
 import { navLinks, site } from "@/data/site";
 
-export function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [activeId, setActiveId] = useState("");
+function isActive(pathname: string, href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
+export function SiteNav() {
+  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [prevPathname, setPrevPathname] = useState(pathname);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    const sections = Array.from(
-      document.querySelectorAll<HTMLElement>("main section[id]")
-    );
-    if (sections.length === 0) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) setActiveId(entry.target.id);
-        }
-      },
-      { rootMargin: "-35% 0px -60% 0px" }
-    );
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
-  }, []);
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
+    setMenuOpen(false);
+  }
 
   useEffect(() => {
     if (menuOpen) firstLinkRef.current?.focus();
@@ -54,16 +42,10 @@ export function Navbar() {
   }, [menuOpen]);
 
   return (
-    <header
-      className={`sticky top-0 z-50 transition-colors duration-300 ${
-        scrolled
-          ? "border-b border-line bg-paper/85 backdrop-blur-md"
-          : "border-b border-transparent"
-      }`}
-    >
+    <header className="sticky top-0 z-50 border-b border-line bg-paper/85 backdrop-blur-md">
       <Container className="flex h-16 items-center justify-between gap-4">
-        <a
-          href="#home"
+        <Link
+          href="/"
           className="group flex shrink-0 items-center gap-3"
           aria-label={`${site.name} — Home`}
         >
@@ -73,21 +55,22 @@ export function Navbar() {
           <span className="hidden text-sm font-medium tracking-tight text-ink sm:inline">
             {site.name}
           </span>
-        </a>
+        </Link>
 
         <nav aria-label="Primary" className="hidden items-center gap-6 lg:flex">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              aria-current={
-                activeId === link.href.slice(1) ? "location" : undefined
-              }
-              className="relative font-mono text-xs uppercase tracking-[0.15em] text-ink-soft transition-colors after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 hover:text-ink hover:after:scale-x-100 aria-[current=location]:text-ink aria-[current=location]:after:scale-x-100"
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            const active = isActive(pathname, link.href);
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                aria-current={active ? "page" : undefined}
+                className="relative font-mono text-xs uppercase tracking-[0.15em] text-ink-soft transition-colors after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 hover:text-ink hover:after:scale-x-100 aria-[current=page]:text-ink aria-[current=page]:after:scale-x-100"
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-1">
@@ -123,21 +106,22 @@ export function Navbar() {
           <Container className="border-t border-line py-4">
             <nav aria-label="Mobile">
               <ul className="flex flex-col">
-                {navLinks.map((link, index) => (
-                  <li key={link.href}>
-                    <a
-                      ref={index === 0 ? firstLinkRef : undefined}
-                      href={link.href}
-                      onClick={() => setMenuOpen(false)}
-                      aria-current={
-                        activeId === link.href.slice(1) ? "location" : undefined
-                      }
-                      className="flex items-center justify-between py-3 font-mono text-sm uppercase tracking-[0.15em] text-ink-soft transition-colors hover:text-ink aria-[current=location]:text-ink"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
+                {navLinks.map((link, index) => {
+                  const active = isActive(pathname, link.href);
+                  return (
+                    <li key={link.href}>
+                      <Link
+                        ref={index === 0 ? firstLinkRef : undefined}
+                        href={link.href}
+                        onClick={() => setMenuOpen(false)}
+                        aria-current={active ? "page" : undefined}
+                        className="flex items-center justify-between py-3 font-mono text-sm uppercase tracking-[0.15em] text-ink-soft transition-colors hover:text-ink aria-[current=page]:text-ink"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </nav>
           </Container>

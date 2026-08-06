@@ -1,6 +1,7 @@
 import { HeroVisual } from "@/components/hero/HeroVisual";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import { ScrambleText } from "@/components/ui/ScrambleText";
 import {
   ArrowDownIcon,
   GitHubIcon,
@@ -8,12 +9,22 @@ import {
   MailIcon,
 } from "@/components/ui/icons";
 import { site, socialLinks } from "@/data/site";
+import { hasResume } from "@/lib/resume";
 
 const iconMap = {
   GitHub: GitHubIcon,
   LinkedIn: LinkedinIcon,
   Email: MailIcon,
 } as const;
+
+const pageIndex = [
+  { index: "01", label: "Projects", href: "#projects" },
+  { index: "02", label: "Toolbelt", href: "#skills" },
+  { index: "03", label: "About", href: "#about" },
+  { index: "04", label: "Lab", href: "#lab" },
+  { index: "05", label: "Writing", href: "#blog" },
+  { index: "06", label: "Contact", href: "#contact" },
+] as const;
 
 export function Hero() {
   return (
@@ -22,70 +33,102 @@ export function Hero() {
       className="relative flex flex-col md:min-h-[calc(100svh_-_4rem)]"
     >
       <HeroVisual />
-      <Container className="relative z-10 flex flex-1 flex-col justify-center py-16">
-        <p className="animate-fade-up font-mono text-xs uppercase tracking-[0.2em] text-accent">
-          {site.status}
-        </p>
-        <h1
-          className="animate-fade-up mt-6 max-w-3xl"
-          style={{ animationDelay: "80ms" }}
-        >
-          {site.headline}
-        </h1>
-        <p
-          className="animate-fade-up mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft"
-          style={{ animationDelay: "160ms" }}
-        >
-          {site.intro}
-        </p>
-        <div
-          className="animate-fade-up mt-10 flex flex-wrap items-center gap-3"
-          style={{ animationDelay: "240ms" }}
-        >
-          <Button href="#projects">Explore My Work</Button>
-          <Button
-            href={site.resumeUrl}
-            variant="secondary"
-            target="_blank"
-            rel="noopener noreferrer"
+      <Container className="relative z-10 flex flex-1 flex-col justify-center py-16 lg:py-20">
+        <div className="max-w-[38rem]">
+          <p className="animate-fade-up font-mono text-xs uppercase tracking-[0.2em] text-accent">
+            {site.status}
+          </p>
+          <ScrambleText
+            as="h1"
+            text={site.fullName}
+            className="animate-fade-up mt-6 text-[clamp(2.25rem,9vw,6.5rem)] font-semibold uppercase leading-[1.04] tracking-tight text-ink"
+          />
+          <p
+            className="animate-fade-up mt-6 text-xl leading-relaxed text-ink sm:text-2xl"
+            style={{ animationDelay: "160ms" }}
           >
-            View Resume
-          </Button>
-        </div>
-        <div
-          className="animate-fade-up mt-10 flex items-center gap-1"
-          style={{ animationDelay: "320ms" }}
-        >
-          {socialLinks.map((social) => {
-            const Icon = iconMap[social.label];
-            const external = social.href.startsWith("http");
-            return (
-              <a
-                key={social.label}
-                href={social.href}
-                aria-label={social.label}
-                {...(external
-                  ? { target: "_blank", rel: "noopener noreferrer" }
-                  : {})}
-                className="flex h-11 w-11 items-center justify-center rounded-sm text-ink-soft transition-colors hover:bg-surface hover:text-ink"
+            {site.headline}
+          </p>
+          <p
+            className="animate-fade-up mt-4 max-w-xl text-base leading-relaxed text-ink-soft"
+            style={{ animationDelay: "200ms" }}
+          >
+            {site.intro}
+          </p>
+          <ul
+            aria-label="Current technical focus"
+            className="animate-fade-up mt-8 flex flex-wrap gap-2"
+            style={{ animationDelay: "260ms" }}
+          >
+            {site.focus.map((item) => (
+              <li
+                key={item}
+                className="border border-line px-2 py-1 font-mono text-[11px] uppercase tracking-[0.15em] text-ink-soft"
               >
-                <Icon className="h-5 w-5" />
-              </a>
-            );
-          })}
+                {item}
+              </li>
+            ))}
+          </ul>
+          <div
+            className="animate-fade-up mt-9 flex flex-wrap items-center gap-3"
+            style={{ animationDelay: "320ms" }}
+          >
+            <Button href="/projects">Explore My Work</Button>
+            <Button href={`mailto:${site.email}`} variant="secondary">
+              Get in Touch
+            </Button>
+            {hasResume() && (
+              <Button
+                href={site.resumeUrl}
+                variant="secondary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Resume
+              </Button>
+            )}
+          </div>
+          <div
+            className="animate-fade-up mt-10 flex items-center gap-1"
+            style={{ animationDelay: "380ms" }}
+          >
+            {socialLinks.map((social) => {
+              const Icon = iconMap[social.label];
+              const external = social.href.startsWith("http");
+              return (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  aria-label={social.label}
+                  {...(external
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                  className="flex h-11 w-11 items-center justify-center rounded-sm text-ink-soft transition-colors hover:bg-surface hover:text-ink"
+                >
+                  <Icon className="h-5 w-5" />
+                </a>
+              );
+            })}
+          </div>
         </div>
       </Container>
 
       <Container className="relative z-10">
         <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t border-line py-5">
-          <ul
-            aria-label="Current technical focus"
+          <nav
+            aria-label="Page index"
             className="flex flex-wrap gap-x-5 gap-y-1.5 font-mono text-xs uppercase tracking-[0.15em] text-ink-faint"
           >
-            {site.focus.map((item) => (
-              <li key={item}>{item}</li>
+            {pageIndex.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="transition-colors hover:text-accent focus-visible:text-accent"
+              >
+                {item.index} {item.label}
+              </a>
             ))}
-          </ul>
+          </nav>
           <span
             aria-hidden="true"
             className="hidden items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-ink-faint sm:inline-flex"

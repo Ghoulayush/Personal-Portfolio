@@ -4,6 +4,7 @@ import { SectionIndex } from "@/components/ui/SectionIndex";
 import { ArrowUpRightIcon } from "@/components/ui/icons";
 import { projects } from "@/data/projects";
 import { site } from "@/data/site";
+import Link from "next/link";
 
 const featuredProjects = projects.filter((project) => project.featured);
 
@@ -11,7 +12,7 @@ export function Projects() {
   return (
     <Section id="projects">
       <div className="max-w-3xl">
-        <SectionIndex index="03" label="Selected Work" />
+        <SectionIndex index="01" label="Selected Work" />
         <h2 className="mt-4 max-w-xl">
           Projects that earned their scars.
         </h2>
@@ -48,14 +49,15 @@ export function Projects() {
             <article
               key={project.slug}
               className="group grid gap-6 border-b border-line py-10 lg:grid-cols-12 lg:gap-12"
-            >
-              <div className="lg:col-span-4">
+            >              <div className="lg:col-span-4">
                 <p className="font-mono text-xs text-ink-faint transition-colors duration-300 group-hover:text-accent group-focus-within:text-accent">
                   {String(index + 1).padStart(2, "0")}
                 </p>
-                <h3 className="mt-3 text-2xl font-medium tracking-tight text-ink transition-transform duration-300 group-hover:translate-x-1 group-focus-within:translate-x-1 sm:text-3xl">
-                  {project.title}
-                </h3>
+                <Link href={`/projects/${project.slug}`}>
+                  <h3 className="mt-3 text-2xl font-medium tracking-tight text-ink transition-transform duration-300 group-hover:translate-x-1 group-focus-within:translate-x-1 sm:text-3xl">
+                    {project.title}
+                  </h3>
+                </Link>
                 <p className="mt-2 font-mono text-xs uppercase tracking-[0.15em] text-ink-faint">
                   {project.year}
                 </p>
@@ -108,6 +110,13 @@ export function Projects() {
           ))}
         </div>
       )}
+
+      <div className="pt-10">
+        <Button href="/projects" variant="secondary">
+          All projects
+          <ArrowUpRightIcon className="h-4 w-4" />
+        </Button>
+      </div>
     </Section>
   );
 }

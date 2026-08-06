@@ -68,8 +68,10 @@ export function Blog() {
   return (
     <Section id="blog">
       <div className="border-b border-line pb-10">
-        <SectionIndex index="05" label="Writing" />
-        <h2 className="mt-4 max-w-xl">Notes on building software that lasts.</h2>
+          <SectionIndex index="05" label="Writing" />
+          <h2 className="mt-4 max-w-xl">
+            Notes on building software that lasts.
+          </h2>
         <p className="mt-4 max-w-2xl text-ink-soft">
           Long-form notes on distributed systems, LLM tooling, and the small
           interfaces that make tools feel good.
@@ -123,6 +125,16 @@ export function Blog() {
           </ol>
         </div>
       )}
+
+      <div className="pt-10">
+        <Link
+          href="/blog"
+          className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-accent transition-colors hover:text-ink"
+        >
+          All notes
+          <ArrowUpRightIcon className="h-3.5 w-3.5" />
+        </Link>
+      </div>
     </Section>
   );
 }
