@@ -1,3 +1,14 @@
+export type EngineeringDecision = {
+  title: string;
+  detail: string;
+};
+
+export type GalleryItem = {
+  src?: string;
+  alt: string;
+  caption?: string;
+};
+
 export type Project = {
   slug: string;
   title: string;
@@ -13,8 +24,16 @@ export type Project = {
   github: string;
   live?: string;
   featured: boolean;
+  /** Path to a real preview image in /public. Omit to render the placeholder. */
+  image?: string;
   caseStudy?: {
     intro?: string;
-    sections: { heading: string; body: string[] }[];
+    goals?: string[];
+    architecture?: string[];
+    challenges?: string[];
+    decisions?: EngineeringDecision[];
+    lessons?: string[];
+    future?: string[];
+    gallery?: GalleryItem[];
   };
 };

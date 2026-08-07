@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { TechnologyLogo } from "@/components/ui/TechnologyLogo";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Container } from "@/components/ui/Container";
 import { ArrowUpRightIcon } from "@/components/ui/icons";
 import { about } from "@/data/about";
 import { site } from "@/data/site";
 import { skills } from "@/data/skills";
+import { findTechnologyByName } from "@/lib/technologies";
 
 export const metadata: Metadata = {
   title: "About",
@@ -92,30 +94,53 @@ export default function AboutPage() {
             <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-ink-faint">
               Toolbelt
             </h2>
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink-soft">
+              The languages, platforms, and tools I reach for — organized by
+              where they show up in my work.
+            </p>
           </div>
-          <div className="lg:col-span-8">
-            {skills.map((category) => (
+          <div className="space-y-10 lg:col-span-8">
+            {skills.map((category, categoryIndex) => (
               <div
                 key={category.name}
-                className="border-b border-line py-6 last:border-b-0"
+                className="border-b border-line pb-10 last:border-b-0"
               >
-                <h3 className="font-mono text-sm uppercase tracking-[0.15em] text-ink">
+                <h3 className="flex items-baseline gap-3 font-mono text-sm uppercase tracking-[0.15em] text-ink">
+                  <span className="text-ink-faint">
+                    {String(categoryIndex + 1).padStart(2, "0")}
+                  </span>
                   {category.name}
                 </h3>
-                <ul className="mt-4 flex flex-wrap gap-2">
-                  {category.skills.map((skill) => (
-                    <li
-                      key={skill.name}
-                      className="flex max-w-[16rem] flex-col gap-1 border border-line px-3 py-2 transition-colors hover:border-accent"
-                    >
-                      <span className="font-mono text-xs text-ink">
-                        {skill.name}
-                      </span>
-                      <span className="text-xs leading-snug text-ink-faint">
-                        {skill.description}
-                      </span>
-                    </li>
-                  ))}
+                <ul className="mt-5 grid gap-2 sm:grid-cols-2">
+                  {category.skills.map((skill) => {
+                    const technology = findTechnologyByName(skill.name);
+                    return (
+                      <li
+                        key={skill.name}
+                        className="flex items-start gap-3 border border-line bg-surface px-3 py-2.5 transition-colors hover:border-line-strong"
+                      >
+                        {technology ? (
+                          <TechnologyLogo
+                            slug={technology.slug}
+                            className="mt-0.5 h-5 w-5 shrink-0"
+                          />
+                        ) : (
+                          <span
+                            aria-hidden="true"
+                            className="mt-1.5 h-2.5 w-2.5 shrink-0 bg-line-strong"
+                          />
+                        )}
+                        <span className="min-w-0">
+                          <span className="block font-mono text-xs text-ink">
+                            {skill.name}
+                          </span>
+                          <span className="mt-1 block text-xs leading-snug text-ink-faint">
+                            {skill.description}
+                          </span>
+                        </span>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             ))}

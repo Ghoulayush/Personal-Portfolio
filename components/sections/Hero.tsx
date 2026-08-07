@@ -2,12 +2,7 @@ import { HeroVisual } from "@/components/hero/HeroVisual";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { ScrambleText } from "@/components/ui/ScrambleText";
-import {
-  ArrowDownIcon,
-  GitHubIcon,
-  LinkedinIcon,
-  MailIcon,
-} from "@/components/ui/icons";
+import { GitHubIcon, LinkedinIcon, MailIcon } from "@/components/ui/icons";
 import { site, socialLinks } from "@/data/site";
 import { hasResume } from "@/lib/resume";
 
@@ -16,15 +11,6 @@ const iconMap = {
   LinkedIn: LinkedinIcon,
   Email: MailIcon,
 } as const;
-
-const pageIndex = [
-  { index: "01", label: "Projects", href: "#projects" },
-  { index: "02", label: "Toolbelt", href: "#skills" },
-  { index: "03", label: "About", href: "#about" },
-  { index: "04", label: "Lab", href: "#lab" },
-  { index: "05", label: "Writing", href: "#blog" },
-  { index: "06", label: "Contact", href: "#contact" },
-] as const;
 
 export function Hero() {
   return (
@@ -110,32 +96,6 @@ export function Hero() {
               );
             })}
           </div>
-        </div>
-      </Container>
-
-      <Container className="relative z-10">
-        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t border-line py-5">
-          <nav
-            aria-label="Page index"
-            className="flex flex-wrap gap-x-5 gap-y-1.5 font-mono text-xs uppercase tracking-[0.15em] text-ink-faint"
-          >
-            {pageIndex.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="transition-colors hover:text-accent focus-visible:text-accent"
-              >
-                {item.index} {item.label}
-              </a>
-            ))}
-          </nav>
-          <span
-            aria-hidden="true"
-            className="hidden items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-ink-faint sm:inline-flex"
-          >
-            scroll
-            <ArrowDownIcon className="h-3.5 w-3.5" />
-          </span>
         </div>
       </Container>
     </section>
