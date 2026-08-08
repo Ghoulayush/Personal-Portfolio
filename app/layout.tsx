@@ -45,15 +45,35 @@ export const metadata: Metadata = {
       template: `%s — ${site.fullName}`,
     },
     description: defaultDescription,
-    ...(siteUrl ? { url: siteUrl.origin } : {}),
   },
   twitter: {
     card: "summary",
     title: defaultTitle,
     description: defaultDescription,
   },
-  ...(siteUrl ? { alternates: { canonical: "/" } } : {}),
 };
+
+const structuredData = siteUrl
+  ? {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          name: site.fullName,
+          url: site.url,
+          email: site.email,
+          sameAs: [site.githubUrl, site.linkedinUrl],
+          knowsAbout: site.focus,
+        },
+        {
+          "@type": "WebSite",
+          name: site.fullName,
+          url: site.url,
+          inLanguage: "en",
+        },
+      ],
+    }
+  : null;
 
 export const viewport: Viewport = {
   themeColor: [
@@ -77,6 +97,12 @@ export default function RootLayout({
         <Script id="theme-init" strategy="beforeInteractive">
           {themeInit}
         </Script>
+        {structuredData && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          />
+        )}
         {children}
       </body>
     </html>

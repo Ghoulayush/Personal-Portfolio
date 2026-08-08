@@ -9,6 +9,7 @@ import { TechnologyLogo } from "@/components/ui/TechnologyLogo";
 import { ArrowUpRightIcon } from "@/components/ui/icons";
 import { MediaPlaceholder, ProjectImage } from "@/components/projects/ProjectImage";
 import { projects } from "@/data/projects";
+import { site } from "@/data/site";
 import { findTechnologyByName } from "@/lib/technologies";
 
 type ProjectPageProps = {
@@ -26,10 +27,16 @@ export async function generateMetadata({
   const project = projects.find((entry) => entry.slug === slug);
   if (!project) return {};
   const description = project.summary ?? project.description;
+  const path = `/projects/${project.slug}`;
   return {
     title: project.title,
     description,
-    openGraph: { title: project.title, description },
+    alternates: { canonical: path },
+    openGraph: {
+      title: project.title,
+      description,
+      url: new URL(path, site.url).toString(),
+    },
   };
 }
 

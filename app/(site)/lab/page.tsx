@@ -4,12 +4,15 @@ import { Container } from "@/components/ui/Container";
 import { Terminal } from "@/components/terminal/Terminal";
 import { games } from "@/data/games";
 import { music } from "@/data/music";
+import { site } from "@/data/site";
 import type { Game, GameStatus } from "@/types/game";
 
 export const metadata: Metadata = {
   title: "Lab",
   description:
     "Experiments and hands-on builds — a terminal, small games, and music I'm into.",
+  alternates: { canonical: "/lab" },
+  openGraph: { url: new URL("/lab", site.url).toString() },
 };
 
 const gameStatusOrder: GameStatus[] = [

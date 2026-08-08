@@ -10,9 +10,9 @@ export const site: SiteConfig = {
   intro:
     "I'm a fourth-year Computer Science student at Graphic Era Deemed to be University, focused on agentic AI, cloud computing, and DevOps. I learn by building — personal projects that put AI, containers, and algorithms into practice, with an emphasis on reliability and maintainability.",
   email: "ramolaayush832@gmail.com",
-  // Set the production domain (e.g. "https://ayushramola.dev") to enable
-  // canonical URLs and Open Graph links. Leave empty until the site is live.
-  url: "",
+  // Production domain — used for canonical URLs, Open Graph links, sitemap,
+  // and robots.txt. Update when the final custom domain is decided.
+  url: "https://ayushramola.vercel.app",
   resumeUrl: "/resume.pdf",
   githubUrl: "https://github.com/Ghoulayush",
   linkedinUrl: "https://www.linkedin.com/in/ayush-ramola/",

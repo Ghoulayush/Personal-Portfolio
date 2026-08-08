@@ -7,6 +7,8 @@ import { site } from "@/data/site";
 
 export const metadata: Metadata = {
   description: site.intro,
+  alternates: { canonical: "/" },
+  openGraph: { url: site.url },
 };
 
 export default function Home() {

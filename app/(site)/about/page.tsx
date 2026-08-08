@@ -12,6 +12,8 @@ import { findTechnologyByName } from "@/lib/technologies";
 export const metadata: Metadata = {
   title: "About",
   description: `Background, working principles, focus areas, and the full toolbelt of ${site.fullName}.`,
+  alternates: { canonical: "/about" },
+  openGraph: { url: new URL("/about", site.url).toString() },
 };
 
 const nowSummary: { label: string; value: string }[] = [

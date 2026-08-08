@@ -3,12 +3,15 @@ import Link from "next/link";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Container } from "@/components/ui/Container";
 import { articles } from "@/data/articles";
+import { site } from "@/data/site";
 import type { Article } from "@/types/article";
 
 export const metadata: Metadata = {
   title: "Notes",
   description:
     "Long-form notes on distributed systems, LLM tooling, and the small interfaces that make tools feel good.",
+  alternates: { canonical: "/blog" },
+  openGraph: { url: new URL("/blog", site.url).toString() },
 };
 
 const dateFormatter = new Intl.DateTimeFormat("en-US", {

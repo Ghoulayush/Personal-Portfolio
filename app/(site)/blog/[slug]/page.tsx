@@ -31,10 +31,16 @@ export async function generateMetadata({
   const { slug } = await params;
   const article = articles.find((entry) => entry.slug === slug);
   if (!article) return {};
+  const path = `/blog/${article.slug}`;
   return {
     title: article.title,
     description: article.excerpt,
-    openGraph: { title: article.title, description: article.excerpt },
+    alternates: { canonical: path },
+    openGraph: {
+      title: article.title,
+      description: article.excerpt,
+      url: new URL(path, site.url).toString(),
+    },
   };
 }
 

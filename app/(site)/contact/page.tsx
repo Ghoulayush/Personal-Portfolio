@@ -13,6 +13,8 @@ import { hasResume } from "@/lib/resume";
 export const metadata: Metadata = {
   title: "Contact",
   description: `How to reach ${site.fullName} — email is the fastest way.`,
+  alternates: { canonical: "/contact" },
+  openGraph: { url: new URL("/contact", site.url).toString() },
 };
 
 function cleanUrl(url: string): string {
