@@ -11,7 +11,7 @@ import { findTechnologyByName } from "@/lib/technologies";
 
 export const metadata: Metadata = {
   title: "About",
-  description: about.story.join(" "),
+  description: `Background, working principles, focus areas, and the full toolbelt of ${site.fullName}.`,
 };
 
 const nowSummary: { label: string; value: string }[] = [

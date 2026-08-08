@@ -25,9 +25,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = projects.find((entry) => entry.slug === slug);
   if (!project) return {};
+  const description = project.summary ?? project.description;
   return {
     title: project.title,
-    description: project.summary ?? project.description,
+    description,
+    openGraph: { title: project.title, description },
   };
 }
 

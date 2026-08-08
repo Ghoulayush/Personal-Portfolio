@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Container } from "@/components/ui/Container";
 import { about } from "@/data/about";
+import { site } from "@/data/site";
 import { experience } from "@/data/experience";
 import type { TimelineKind } from "@/types/experience";
 
 export const metadata: Metadata = {
   title: "Now",
-  description: `What ${about.now.status.split("·")[0]?.trim() ?? "I"} am up to now.`,
+  description: `What ${site.fullName} is up to right now — current status, focus areas, and what's being built and learned.`,
 };
 
 const kindLabels: Record<TimelineKind, string> = {

@@ -18,29 +18,39 @@ const themeInit = `(function(){try{var s=localStorage.getItem("theme");var d=s?s
 
 const siteUrl = site.url ? new URL(site.url) : null;
 
+const defaultTitle = `${site.fullName} — ${site.status}`;
+const defaultDescription = `Portfolio of ${site.fullName} — ${site.status}. ${site.headline}`;
+
 export const metadata: Metadata = {
-  title: {
-    default: `${site.fullName} · Portfolio`,
-    template: "%s · Portfolio",
-  },
-  description: `Portfolio of ${site.fullName} — ${site.status}.`,
   metadataBase: siteUrl ?? undefined,
-  robots: { index: true, follow: true },
+  title: {
+    default: defaultTitle,
+    template: `%s — ${site.fullName}`,
+  },
+  description: defaultDescription,
+  applicationName: site.fullName,
+  authors: [{ name: site.fullName, url: site.githubUrl }],
+  creator: site.fullName,
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
+  },
   openGraph: {
     type: "website",
     siteName: site.fullName,
     locale: "en_US",
     title: {
-      default: `${site.fullName} · Portfolio`,
-      template: "%s · Portfolio",
+      default: defaultTitle,
+      template: `%s — ${site.fullName}`,
     },
-    description: `Portfolio of ${site.fullName} — ${site.status}.`,
+    description: defaultDescription,
     ...(siteUrl ? { url: siteUrl.origin } : {}),
   },
   twitter: {
     card: "summary",
-    title: `${site.fullName} · Portfolio`,
-    description: `Portfolio of ${site.fullName} — ${site.status}.`,
+    title: defaultTitle,
+    description: defaultDescription,
   },
   ...(siteUrl ? { alternates: { canonical: "/" } } : {}),
 };

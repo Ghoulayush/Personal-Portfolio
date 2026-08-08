@@ -31,7 +31,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const article = articles.find((entry) => entry.slug === slug);
   if (!article) return {};
-  return { title: article.title, description: article.excerpt };
+  return {
+    title: article.title,
+    description: article.excerpt,
+    openGraph: { title: article.title, description: article.excerpt },
+  };
 }
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
