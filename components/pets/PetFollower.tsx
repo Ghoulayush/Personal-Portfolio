@@ -13,6 +13,8 @@ const LERP_RATE = 6;
 const WALK_SPEED = 40;
 const FRAME_MS = 130;
 const MARGIN = 20;
+const SETTLE_EPSILON = 0.75;
+const IDLE_STOP_MS = 150;
 
 const petById = new Map(pets.map((pet) => [pet.id, pet]));
 
@@ -35,6 +37,7 @@ export function PetFollower({ petId }: { petId: ActivePetId }) {
   const positionRef = useRef({ x: start.x, y: start.y });
   const pointerRef = useRef({ x: start.x, y: start.y });
   const metaRef = useRef({ moving: false, frameAt: 0 });
+  const dirRef = useRef(0);
   const rafRef = useRef(0);
 
   useEffect(() => {
@@ -50,16 +53,12 @@ export function PetFollower({ petId }: { petId: ActivePetId }) {
       }
     };
 
-    const onPointerMove = (event: PointerEvent) => {
-      pointerRef.current = { x: event.clientX, y: event.clientY };
-    };
-    window.addEventListener("pointermove", onPointerMove);
-
-    let running = true;
+    let loopRunning = false;
+    let lastPointerMoveAt = 0;
     let last = performance.now();
 
     const tick = (now: number) => {
-      if (!running) return;
+      if (!loopRunning) return;
       const dt = Math.min(0.05, Math.max(0.001, (now - last) / 1000));
       last = now;
 
@@ -93,8 +92,11 @@ export function PetFollower({ petId }: { petId: ActivePetId }) {
       };
       applyTransform();
 
-      if (dirX < 0) setFlipped(true);
-      else if (dirX > 0) setFlipped(false);
+      const dir = dirX < 0 ? -1 : dirX > 0 ? 1 : 0;
+      if (dir !== 0 && dir !== dirRef.current) {
+        dirRef.current = dir;
+        setFlipped(dir === -1);
+      }
 
       const nextMoving = speed > WALK_SPEED;
       if (nextMoving !== metaRef.current.moving) {
@@ -107,8 +109,31 @@ export function PetFollower({ petId }: { petId: ActivePetId }) {
         setFrame((current) => (current + 1) % 2);
       }
 
+      const settled =
+        Math.abs(targetX - positionRef.current.x) < SETTLE_EPSILON &&
+        Math.abs(targetY - positionRef.current.y) < SETTLE_EPSILON;
+      if (settled && performance.now() - lastPointerMoveAt > IDLE_STOP_MS) {
+        loopRunning = false;
+        rafRef.current = 0;
+        return;
+      }
+
       rafRef.current = requestAnimationFrame(tick);
     };
+
+    const startLoop = () => {
+      if (loopRunning) return;
+      loopRunning = true;
+      last = performance.now();
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    const onPointerMove = (event: PointerEvent) => {
+      pointerRef.current = { x: event.clientX, y: event.clientY };
+      lastPointerMoveAt = performance.now();
+      startLoop();
+    };
+    window.addEventListener("pointermove", onPointerMove);
 
     const onVisibilityChange = () => {
       const hidden = document.visibilityState === "hidden";
@@ -117,20 +142,18 @@ export function PetFollower({ petId }: { petId: ActivePetId }) {
         hidden ? "true" : "false",
       );
       if (hidden) {
-        running = false;
+        loopRunning = false;
         cancelAnimationFrame(rafRef.current);
-      } else if (!running) {
-        running = true;
-        last = performance.now();
-        rafRef.current = requestAnimationFrame(tick);
+      } else {
+        startLoop();
       }
     };
 
     document.addEventListener("visibilitychange", onVisibilityChange);
-    rafRef.current = requestAnimationFrame(tick);
+    startLoop();
 
     return () => {
-      running = false;
+      loopRunning = false;
       cancelAnimationFrame(rafRef.current);
       document.removeEventListener("visibilitychange", onVisibilityChange);
       window.removeEventListener("pointermove", onPointerMove);

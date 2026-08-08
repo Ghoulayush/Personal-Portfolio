@@ -142,8 +142,7 @@ export function BootScreen() {
     <div
       className="boot-overlay"
       data-exiting={exiting ? "true" : undefined}
-      role="status"
-      aria-live="polite"
+      aria-hidden="true"
     >
       <div className="relative px-5 py-16 text-center">
         <PixelMark />

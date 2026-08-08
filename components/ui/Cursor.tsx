@@ -10,6 +10,8 @@ const RETICLE_REST = 22;
 const RETICLE_INTERACTIVE = 30;
 const RETICLE_LAB = 26;
 const LERP = 0.16;
+const SETTLED_EPSILON = 0.5;
+const IDLE_STOP_MS = 120;
 
 function reticleSize(state: CursorState): number {
   if (state === "interactive") return RETICLE_INTERACTIVE;
@@ -57,12 +59,40 @@ export function Cursor() {
     };
     paintRef.current = paint;
 
+    let loopRunning = false;
+    let lastMoveAt = 0;
+
+    const loop = () => {
+      const target = positionRef.current;
+      const current = smoothRef.current;
+      smoothRef.current = {
+        x: current.x + (target.x - current.x) * LERP,
+        y: current.y + (target.y - current.y) * LERP,
+      };
+      paint();
+      const settled =
+        Math.abs(target.x - smoothRef.current.x) < SETTLED_EPSILON &&
+        Math.abs(target.y - smoothRef.current.y) < SETTLED_EPSILON;
+      if (settled && performance.now() - lastMoveAt > IDLE_STOP_MS) {
+        loopRunning = false;
+        rafRef.current = 0;
+        return;
+      }
+      rafRef.current = requestAnimationFrame(loop);
+    };
+
     const onPointerMove = (event: PointerEvent) => {
       positionRef.current = { x: event.clientX, y: event.clientY };
+      lastMoveAt = performance.now();
       reticle.style.opacity = "1";
       if (reducedMotion) {
         smoothRef.current = { x: event.clientX, y: event.clientY };
         paint();
+        return;
+      }
+      if (!loopRunning) {
+        loopRunning = true;
+        rafRef.current = requestAnimationFrame(loop);
       }
     };
 
@@ -74,25 +104,11 @@ export function Cursor() {
       stateRef.current = interactive ? "interactive" : baseStateRef.current;
     };
 
-    const loop = () => {
-      const target = positionRef.current;
-      const current = smoothRef.current;
-      smoothRef.current = {
-        x: current.x + (target.x - current.x) * LERP,
-        y: current.y + (target.y - current.y) * LERP,
-      };
-      paint();
-      rafRef.current = requestAnimationFrame(loop);
-    };
-
-    if (!reducedMotion) {
-      rafRef.current = requestAnimationFrame(loop);
-    }
-
     window.addEventListener("pointermove", onPointerMove, { passive: true });
     window.addEventListener("pointerover", onPointerOver, { passive: true });
 
     return () => {
+      loopRunning = false;
       cancelAnimationFrame(rafRef.current);
       paintRef.current = () => {};
       window.removeEventListener("pointermove", onPointerMove);
