@@ -53,7 +53,7 @@ export function HeroVisual() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-y-0 right-0 z-0 flex items-center justify-center opacity-55 sm:justify-end sm:pr-10 lg:opacity-65"
+      className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden items-center justify-center opacity-55 sm:flex sm:justify-end sm:pr-10 lg:opacity-65"
     >
       <div className="relative flex h-52 w-52 items-center justify-center sm:h-[24rem] sm:w-[24rem]">
         <div className="absolute inset-0 hidden border border-line-strong bg-surface/40 sm:block">
