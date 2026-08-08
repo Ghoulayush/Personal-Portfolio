@@ -36,6 +36,9 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true },
   },
+  verification: {
+    google: "dvvDzx77g5hLCRAdO-ZaCOaGTP1yEEKIjF_AXn8Ys3Y",
+  },
   openGraph: {
     type: "website",
     siteName: site.fullName,
