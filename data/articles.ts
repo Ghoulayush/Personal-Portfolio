@@ -46,4 +46,61 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    slug: "genai-101",
+    title: "genAI 101 \u2014 a three-phase map from AI to ChatGPT",
+    excerpt:
+      "A short study-note map of the AI stack \u2014 artificial intelligence, machine learning, deep learning, and NLP \u2014 the first two phases of a three-phase path to large language models.",
+    date: "2026-08-09",
+    readingMinutes: 1,
+    tags: ["AI", "Machine Learning", "Deep Learning", "NLP", "GenAI"],
+    body: [
+      {
+        type: "heading",
+        text: "The three-phase map",
+      },
+      {
+        type: "list",
+        items: [
+          "Phase 1: AI, Machine Learning, Deep Learning",
+          "Phase 2: NLP, genAI",
+          "Phase 3: Large Language Models, ChatGPT",
+        ],
+      },
+      {
+        type: "heading",
+        text: "Phase 1 \u2014 AI, machine learning, deep learning",
+      },
+      {
+        type: "paragraph",
+        text: "Artificial Intelligence (AI): a field of study that involves developing methods and techniques to solve problems.",
+      },
+      {
+        type: "paragraph",
+        text: "Machine Learning (ML): a field of study that involves creating trained models to solve problems.",
+      },
+      {
+        type: "list",
+        items: [
+          "Trained Model: a method, algorithm or technology that is developed by analyzing patterns in data.",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "Deep Learning (DL): a field of study that involves creating trained neural network models to solve problems.",
+      },
+      {
+        type: "list",
+        items: ["Neural Network: an interconnection of neurons."],
+      },
+      {
+        type: "heading",
+        text: "Phase 2 \u2014 NLP and generative AI",
+      },
+      {
+        type: "paragraph",
+        text: "Natural Language Processing (NLP): a field of study that involves creating methods and techniques to solve natural language problems.",
+      },
+    ],
+  },
 ];
