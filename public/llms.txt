@@ -1,0 +1,27 @@
+# Ayush Ramola
+
+> Personal portfolio of Ayush Ramola — fourth-year Computer Science student focused on agentic AI, cloud computing, and DevOps.
+
+## Portfolio
+
+- https://ayushramola.vercel.app
+
+## Contact
+
+- GitHub: https://github.com/Ghoulayush
+- LinkedIn: https://www.linkedin.com/in/ayush-ramola/
+
+## Projects
+
+- GitMate: https://ayushramola.vercel.app/projects/gitmate
+- BharatBiz AI: https://ayushramola.vercel.app/projects/bharatbiz-ai
+- BookSwap: https://ayushramola.vercel.app/projects/bookswap
+
+## Blog
+
+- https://ayushramola.vercel.app/blog/what-does-serverless-actually-mean
+- https://ayushramola.vercel.app/blog/genai-101
+
+## Technical focus
+
+Agentic AI, Cloud Computing, Kubernetes, DevOps, Machine Learning, Data Structures and Algorithms

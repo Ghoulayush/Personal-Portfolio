@@ -3,7 +3,7 @@ import Link from "next/link";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Container } from "@/components/ui/Container";
 import { articles } from "@/data/articles";
-import { site } from "@/data/site";
+import { ogImage, site } from "@/data/site";
 import type { Article } from "@/types/article";
 
 export const metadata: Metadata = {
@@ -11,7 +11,11 @@ export const metadata: Metadata = {
   description:
     "Long-form notes on distributed systems, LLM tooling, and the small interfaces that make tools feel good.",
   alternates: { canonical: "/blog" },
-  openGraph: { url: new URL("/blog", site.url).toString() },
+  openGraph: {
+    type: "website",
+    url: new URL("/blog", site.url).toString(),
+    images: [ogImage],
+  },
 };
 
 const dateFormatter = new Intl.DateTimeFormat("en-US", {

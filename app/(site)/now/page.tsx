@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Container } from "@/components/ui/Container";
 import { about } from "@/data/about";
-import { site } from "@/data/site";
+import { ogImage, site } from "@/data/site";
 import { experience } from "@/data/experience";
 import type { TimelineKind } from "@/types/experience";
 
@@ -10,7 +10,11 @@ export const metadata: Metadata = {
   title: "Now",
   description: `What ${site.fullName} is up to right now — current status, focus areas, and what's being built and learned.`,
   alternates: { canonical: "/now" },
-  openGraph: { url: new URL("/now", site.url).toString() },
+  openGraph: {
+    type: "website",
+    url: new URL("/now", site.url).toString(),
+    images: [ogImage],
+  },
 };
 
 const kindLabels: Record<TimelineKind, string> = {

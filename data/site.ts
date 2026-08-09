@@ -26,6 +26,13 @@ export const site: SiteConfig = {
   ],
 };
 
+export const ogImage = {
+  url: new URL("/opengraph-image.png", site.url).toString(),
+  width: 1200,
+  height: 630,
+  alt: `${site.fullName} — ${site.status}`,
+};
+
 export const navLinks: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },

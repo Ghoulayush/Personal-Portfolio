@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
-import { site } from "@/data/site";
+import { ogImage, site } from "@/data/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -43,14 +43,12 @@ export const metadata: Metadata = {
     type: "website",
     siteName: site.fullName,
     locale: "en_US",
-    title: {
-      default: defaultTitle,
-      template: `%s — ${site.fullName}`,
-    },
+    title: defaultTitle,
     description: defaultDescription,
+    images: [ogImage],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: defaultTitle,
     description: defaultDescription,
   },

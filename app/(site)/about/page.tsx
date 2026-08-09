@@ -5,7 +5,7 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { Container } from "@/components/ui/Container";
 import { ArrowUpRightIcon } from "@/components/ui/icons";
 import { about } from "@/data/about";
-import { site } from "@/data/site";
+import { ogImage, site } from "@/data/site";
 import { skills } from "@/data/skills";
 import { findTechnologyByName } from "@/lib/technologies";
 
@@ -13,7 +13,11 @@ export const metadata: Metadata = {
   title: "About",
   description: `Background, working principles, focus areas, and the full toolbelt of ${site.fullName}.`,
   alternates: { canonical: "/about" },
-  openGraph: { url: new URL("/about", site.url).toString() },
+  openGraph: {
+    type: "website",
+    url: new URL("/about", site.url).toString(),
+    images: [ogImage],
+  },
 };
 
 const nowSummary: { label: string; value: string }[] = [

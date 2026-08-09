@@ -7,14 +7,18 @@ import {
   LinkedinIcon,
   MailIcon,
 } from "@/components/ui/icons";
-import { site } from "@/data/site";
+import { ogImage, site } from "@/data/site";
 import { hasResume } from "@/lib/resume";
 
 export const metadata: Metadata = {
   title: "Contact",
   description: `How to reach ${site.fullName} — email is the fastest way.`,
   alternates: { canonical: "/contact" },
-  openGraph: { url: new URL("/contact", site.url).toString() },
+  openGraph: {
+    type: "website",
+    url: new URL("/contact", site.url).toString(),
+    images: [ogImage],
+  },
 };
 
 function cleanUrl(url: string): string {

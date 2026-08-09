@@ -3,14 +3,18 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { Container } from "@/components/ui/Container";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { projects } from "@/data/projects";
-import { site } from "@/data/site";
+import { ogImage, site } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Projects",
   description:
     "Engineering case studies — the problem each project solves, the stack behind it, and the code to verify.",
   alternates: { canonical: "/projects" },
-  openGraph: { url: new URL("/projects", site.url).toString() },
+  openGraph: {
+    type: "website",
+    url: new URL("/projects", site.url).toString(),
+    images: [ogImage],
+  },
 };
 
 export default function ProjectsIndexPage() {

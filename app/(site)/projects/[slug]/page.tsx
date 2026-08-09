@@ -9,7 +9,7 @@ import { TechnologyLogo } from "@/components/ui/TechnologyLogo";
 import { ArrowUpRightIcon } from "@/components/ui/icons";
 import { MediaPlaceholder, ProjectImage } from "@/components/projects/ProjectImage";
 import { projects } from "@/data/projects";
-import { site } from "@/data/site";
+import { ogImage, site } from "@/data/site";
 import { findTechnologyByName } from "@/lib/technologies";
 
 type ProjectPageProps = {
@@ -33,9 +33,11 @@ export async function generateMetadata({
     description,
     alternates: { canonical: path },
     openGraph: {
+      type: "website",
       title: project.title,
       description,
       url: new URL(path, site.url).toString(),
+      images: [ogImage],
     },
   };
 }

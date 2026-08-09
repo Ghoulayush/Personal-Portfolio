@@ -3,12 +3,12 @@ import { Explore } from "@/components/home/Explore";
 import { FeaturedProject } from "@/components/home/FeaturedProject";
 import { StatusStrip } from "@/components/home/StatusStrip";
 import { Hero } from "@/components/sections/Hero";
-import { site } from "@/data/site";
+import { ogImage, site } from "@/data/site";
 
 export const metadata: Metadata = {
   description: site.intro,
   alternates: { canonical: "/" },
-  openGraph: { url: site.url },
+  openGraph: { type: "website", url: site.url, images: [ogImage] },
 };
 
 export default function Home() {

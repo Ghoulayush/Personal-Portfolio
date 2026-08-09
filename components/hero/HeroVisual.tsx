@@ -62,7 +62,7 @@ export function HeroVisual() {
           <span className="absolute bottom-2.5 left-2.5 h-3 w-3 border-b-2 border-l-2 border-accent" />
           <span className="absolute bottom-2.5 right-2.5 h-3 w-3 border-b-2 border-r-2 border-accent" />
           <span className="absolute left-4 top-4 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-faint">
-            wireframe 01 · ayushramola.dev
+            wireframe 01 · ayushramola.vercel.app
           </span>
           <span className="absolute bottom-4 right-4 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-faint">
             x 0.50 · y 0.50 · z 4.00

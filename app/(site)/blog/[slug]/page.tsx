@@ -5,7 +5,7 @@ import { ArticleBody } from "@/components/blog/ArticleBody";
 import { Container } from "@/components/ui/Container";
 import { ArrowUpRightIcon } from "@/components/ui/icons";
 import { articles } from "@/data/articles";
-import { site } from "@/data/site";
+import { ogImage, site } from "@/data/site";
 
 type ArticlePageProps = {
   params: Promise<{ slug: string }>;
@@ -37,9 +37,11 @@ export async function generateMetadata({
     description: article.excerpt,
     alternates: { canonical: path },
     openGraph: {
+      type: "website",
       title: article.title,
       description: article.excerpt,
       url: new URL(path, site.url).toString(),
+      images: [ogImage],
     },
   };
 }
