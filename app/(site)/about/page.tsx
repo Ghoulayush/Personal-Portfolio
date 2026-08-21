@@ -4,7 +4,9 @@ import { TechnologyLogo } from "@/components/ui/TechnologyLogo";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Container } from "@/components/ui/Container";
 import { ArrowUpRightIcon } from "@/components/ui/icons";
+import { CredlyBadge } from "@/components/about/CredlyBadge";
 import { about } from "@/data/about";
+import { certifications } from "@/data/certifications";
 import { ogImage, site } from "@/data/site";
 import { skills } from "@/data/skills";
 import { findTechnologyByName } from "@/lib/technologies";
@@ -148,6 +150,47 @@ export default function AboutPage() {
                     );
                   })}
                 </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-16 border-t border-line pt-12">
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-4">
+            <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-ink-faint">
+              Certifications
+            </h2>
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink-soft">
+              Verified credentials. Select a badge to view the official record
+              on Credly.
+            </p>
+          </div>
+          <div className="space-y-10 lg:col-span-8">
+            {certifications.map((certification) => (
+              <div
+                key={certification.credentialId}
+                className="flex flex-wrap items-start gap-8 border-b border-line pb-10 last:border-b-0"
+              >
+                <CredlyBadge badgeId={certification.credentialId} />
+                <div className="min-w-0 flex-1">
+                  <h3 className="font-mono text-sm uppercase tracking-[0.15em] text-ink">
+                    {certification.name}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink-soft">
+                    Issued by {certification.issuer}
+                  </p>
+                  <a
+                    href={certification.verifyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group mt-4 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-accent transition-colors hover:text-ink"
+                  >
+                    Verify credential
+                    <ArrowUpRightIcon className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </a>
+                </div>
               </div>
             ))}
           </div>
